@@ -1,0 +1,115 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// User model
+model User {
+  id               String        @id
+  email            String        @unique
+  username         String?       @unique
+  avatar           String?
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  theme            String        @default("default")
+  darkMode         Boolean       @default(false)
+  aiPreference     Float         @default(0.5)
+  geminiApiKey     String?
+  onboardingDone   Boolean       @default(false)
+  auraPoints       Int           @default(0)
+  currentStreak    Int           @default(0)
+  longestStreak    Int           @default(0)
+  lastActiveDate   DateTime?
+  isGuest          Boolean       @default(false)
+  guestUpgradedAt  DateTime?
+  guestUpgradedToId String?
+  tasks            Task[]
+  taskGroups       TaskGroup[]
+  activityLogs     ActivityLog[]
+
+  @@map("users")
+}
+
+// Task model
+model Task {
+  id             String        @id @default(cuid())
+  title          String
+  description    String?
+  status         String        @default("TODO")
+  priority       String        @default("MEDIUM")
+  importanceScore Float?
+  urgencyScore   Float?
+  dueDate        DateTime?
+  completedAt    DateTime?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  auraPoints     Int           @default(0)
+  userId         String
+  taskGroupId    String?
+  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  taskGroup      TaskGroup?    @relation(fields: [taskGroupId], references: [id], onDelete: SetNull)
+  subTasks       SubTask[]
+  activityLogs   ActivityLog[]
+
+  @@index([userId])
+  @@index([taskGroupId])
+  @@map("tasks")
+}
+
+// Task Group model
+model TaskGroup {
+  id          String   @id @default(cuid())
+  name        String
+  emoji       String   @default("📝")
+  color       String   @default("#3b82f6")
+  description String?
+  position    Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tasks       Task[]
+
+  @@index([userId])
+  @@map("task_groups")
+}
+
+// SubTask model
+model SubTask {
+  id        String   @id @default(cuid())
+  title     String
+  completed Boolean  @default(false)
+  position  Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  taskId    String
+  task      Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  @@index([taskId])
+  @@map("sub_tasks")
+}
+
+// Activity Log model
+model ActivityLog {
+  id        String    @id @default(cuid())
+  action    String
+  details   String?
+  metadata  Json?
+  createdAt DateTime  @default(now())
+  userId    String
+  taskId    String?
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  task      Task?     @relation(fields: [taskId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([taskId])
+  @@map("activity_logs")
+}

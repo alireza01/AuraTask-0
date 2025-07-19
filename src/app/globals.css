@@ -1,26 +1,176 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  
+  /* Base colors */
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 84% 4.9%;
+  --primary: 221.2 83.2% 53.3%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 210 40% 96%;
+  --secondary-foreground: 222.2 84% 4.9%;
+  --muted: 210 40% 96%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --accent: 210 40% 96%;
+  --accent-foreground: 222.2 84% 4.9%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 221.2 83.2% 53.3%;
+  --radius: 0.75rem;
+  
+  /* AuraTask theme colors - Default */
+  --aura-50: 210 40% 98%;
+  --aura-100: 210 40% 96%;
+  --aura-200: 214.3 31.8% 91.4%;
+  --aura-300: 213 27.6% 84.1%;
+  --aura-400: 215.4 16.3% 46.9%;
+  --aura-500: 221.2 83.2% 53.3%;
+  --aura-600: 221.2 83.2% 43.3%;
+  --aura-700: 221.2 83.2% 33.3%;
+  --aura-800: 222.2 84% 4.9%;
+  --aura-900: 222.2 84% 2.9%;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.dark {
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+  --card: 222.2 84% 4.9%;
+  --card-foreground: 210 40% 98%;
+  --popover: 222.2 84% 4.9%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 217.2 91.2% 59.8%;
+  --primary-foreground: 222.2 84% 4.9%;
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 217.2 32.6% 17.5%;
+  --input: 217.2 32.6% 17.5%;
+  --ring: 224.3 76.3% 48%;
+  
+  /* AuraTask dark theme colors */
+  --aura-50: 217.2 32.6% 17.5%;
+  --aura-100: 217.2 32.6% 20.5%;
+  --aura-200: 217.2 32.6% 25.5%;
+  --aura-300: 217.2 32.6% 35.5%;
+  --aura-400: 215 20.2% 65.1%;
+  --aura-500: 217.2 91.2% 59.8%;
+  --aura-600: 217.2 91.2% 69.8%;
+  --aura-700: 217.2 91.2% 79.8%;
+  --aura-800: 210 40% 98%;
+  --aura-900: 210 40% 100%;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Alireza Theme - Matrix inspired */
+.theme-alireza {
+  --background: 120 100% 2%;
+  --foreground: 60 100% 85%;
+  --primary: 60 100% 50%;
+  --primary-foreground: 120 100% 2%;
+  --secondary: 120 50% 8%;
+  --secondary-foreground: 60 100% 85%;
+  --accent: 60 100% 50%;
+  --accent-foreground: 120 100% 2%;
+  --muted: 120 50% 8%;
+  --muted-foreground: 60 50% 65%;
+  --border: 120 50% 15%;
+  --input: 120 50% 15%;
+  --ring: 60 100% 50%;
+  
+  --aura-500: 60 100% 50%;
+  --aura-600: 60 100% 40%;
+  --aura-700: 60 100% 30%;
+}
+
+/* Neda Theme - Pastel purples/pinks */
+.theme-neda {
+  --background: 320 50% 97%;
+  --foreground: 320 50% 10%;
+  --primary: 300 70% 60%;
+  --primary-foreground: 320 50% 97%;
+  --secondary: 310 40% 90%;
+  --secondary-foreground: 320 50% 10%;
+  --accent: 290 60% 70%;
+  --accent-foreground: 320 50% 10%;
+  --muted: 310 40% 90%;
+  --muted-foreground: 320 30% 40%;
+  --border: 310 30% 85%;
+  --input: 310 30% 85%;
+  --ring: 300 70% 60%;
+  
+  --aura-500: 300 70% 60%;
+  --aura-600: 300 70% 50%;
+  --aura-700: 300 70% 40%;
+}
+
+.theme-neda.dark {
+  --background: 320 50% 5%;
+  --foreground: 320 50% 90%;
+  --primary: 300 70% 70%;
+  --primary-foreground: 320 50% 5%;
+  --secondary: 310 40% 15%;
+  --secondary-foreground: 320 50% 90%;
+  --accent: 290 60% 80%;
+  --accent-foreground: 320 50% 5%;
+  --muted: 310 40% 15%;
+  --muted-foreground: 320 30% 60%;
+  --border: 310 30% 20%;
+  --input: 310 30% 20%;
+  --ring: 300 70% 70%;
+}
+
+* {
+  border-color: hsl(var(--border));
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: var(--font-vazirmatn);
+  direction: rtl;
+}
+
+/* Persian/RTL specific styles */
+.ltr {
+  direction: ltr;
+}
+
+/* Glassmorphism utility */
+.glass {
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark .glass {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground));
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary));
 }
