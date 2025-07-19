@@ -29,7 +29,9 @@ export class GuestDataMigration {
         await tx.user.update({
           where: { id: guestUserId },
           data: {
-            isGuest: false, // This line will now be valid
+            isGuest: false,
+            guestUpgradedAt: new Date(),
+            guestUpgradedToId: authUserId,
             // Add a note to the username to indicate this was a guest account
             username: await tx.user.findUnique({ where: { id: guestUserId }, select: { username: true } })
               .then(user => `${user?.username || 'Guest'} (Upgraded)`)

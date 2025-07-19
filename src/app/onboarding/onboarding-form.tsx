@@ -4,12 +4,13 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { updateUserProfile, completeOnboarding } from '@/lib/actions/user.actions';
 import { Theme } from '@/lib/types';
+import Image from 'next/image';
 
 interface OnboardingFormProps {
   userId: string;
 }
 
-export default function OnboardingForm({ userId }: OnboardingFormProps) {
+export default function OnboardingForm({}: OnboardingFormProps) {
   const [username, setUsername] = useState('');
   const [avatar, setAvatar] = useState('');
   const [theme, setTheme] = useState<Theme>('default');
@@ -17,34 +18,34 @@ export default function OnboardingForm({ userId }: OnboardingFormProps) {
   const [error, setError] = useState<string | null>(null);
   const [step, setStep] = useState(1);
   const router = useRouter();
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setError(null);
-    
+
     try {
       // Update user profile
       const profileResult = await updateUserProfile({
         username,
         avatar: avatar || undefined,
       });
-      
+
       if (!profileResult.success) {
         setError(profileResult.error || 'خطا در به‌روزرسانی پروفایل');
         setIsLoading(false);
         return;
       }
-      
+
       // Complete onboarding
       const onboardingResult = await completeOnboarding();
-      
+
       if (!onboardingResult.success) {
         setError(onboardingResult.error || 'خطا در تکمیل فرآیند آشنایی با برنامه');
         setIsLoading(false);
         return;
       }
-      
+
       // Redirect to dashboard
       router.push('/dashboard');
     } catch (error) {
@@ -54,19 +55,19 @@ export default function OnboardingForm({ userId }: OnboardingFormProps) {
       setIsLoading(false);
     }
   };
-  
+
   const nextStep = () => {
     if (step < 3) {
       setStep(step + 1);
     }
   };
-  
+
   const prevStep = () => {
     if (step > 1) {
       setStep(step - 1);
     }
   };
-  
+
   return (
     <div className="mt-8 space-y-6">
       {/* Step indicator */}
@@ -80,7 +81,7 @@ export default function OnboardingForm({ userId }: OnboardingFormProps) {
           />
         ))}
       </div>
-      
+
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Step 1: Username */}
         {step === 1 && (
@@ -115,7 +116,7 @@ export default function OnboardingForm({ userId }: OnboardingFormProps) {
             </div>
           </div>
         )}
-        
+
         {/* Step 2: Avatar */}
         {step === 2 && (
           <div className="space-y-4">
@@ -135,9 +136,11 @@ export default function OnboardingForm({ userId }: OnboardingFormProps) {
               />
               {avatar && (
                 <div className="mt-4 flex justify-center">
-                  <img
+                  <Image
                     src={avatar}
                     alt="Avatar preview"
+                    width={96}
+                    height={96}
                     className="h-24 w-24 rounded-full object-cover"
                     onError={() => setAvatar('')}
                   />
@@ -162,7 +165,7 @@ export default function OnboardingForm({ userId }: OnboardingFormProps) {
             </div>
           </div>
         )}
-        
+
         {/* Step 3: Theme */}
         {step === 3 && (
           <div className="space-y-4">
@@ -214,7 +217,7 @@ export default function OnboardingForm({ userId }: OnboardingFormProps) {
             </div>
           </div>
         )}
-        
+
         {/* Error message */}
         {error && (
           <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">

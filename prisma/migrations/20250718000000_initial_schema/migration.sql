@@ -15,6 +15,9 @@ CREATE TABLE "users" (
     "currentStreak" INTEGER NOT NULL DEFAULT 0,
     "longestStreak" INTEGER NOT NULL DEFAULT 0,
     "lastActiveDate" TIMESTAMP(3),
+    "isGuest" BOOLEAN NOT NULL DEFAULT false,
+    "guestUpgradedAt" TIMESTAMP(3),
+    "guestUpgradedToId" TEXT,
 
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );

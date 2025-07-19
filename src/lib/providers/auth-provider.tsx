@@ -3,7 +3,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { AuthService } from '../auth/auth-service';
 import { useRouter } from 'next/navigation';
-import { GuestUserManager } from '../guest/guest-user-manager';
 import { User } from '../types';
 import { useGuestUserContext } from './guest-user-provider';
 import { db } from '../db';

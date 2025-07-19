@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 import { GuestBanner } from '@/components/auth/guest-banner';
 import { db } from '@/lib/db';
 import { MainLayout } from '@/components/layout/MainLayout';
+import { User } from '@/lib/types';
 
 export const metadata: Metadata = {
   title: 'داشبورد | اورا تسک',
@@ -34,13 +35,12 @@ export default async function AppLayout({
   }
 
   // Check if user is a guest
-  // The isGuest property exists in the Prisma schema but needs type assertion
-  const isGuest = dbUser ? (dbUser as any).isGuest || false : false;
+  const isGuest = dbUser?.isGuest || false;
 
   return (
     <>
       {isGuest && <GuestBanner />}
-      <MainLayout user={dbUser || undefined}>
+      <MainLayout user={dbUser as User | undefined}>
         {children}
       </MainLayout>
     </>

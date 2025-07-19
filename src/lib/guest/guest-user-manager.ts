@@ -90,7 +90,7 @@ export class GuestUserManager {
           currentStreak: 0,
           longestStreak: 0,
           onboardingDone: false,
-          // Remove isGuest field as it doesn't exist in the Prisma schema
+          isGuest: true,
         }
       });
 

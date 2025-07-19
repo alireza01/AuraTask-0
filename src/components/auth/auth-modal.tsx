@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useAuthContext } from '@/lib/providers/auth-provider';
 import { Button } from '@/components/ui/button';
-import { Loader2, LogIn, UserPlus } from 'lucide-react';
+import { Loader2, UserPlus } from 'lucide-react';
 import Image from 'next/image';
 
 interface AuthModalProps {
@@ -14,9 +14,9 @@ interface AuthModalProps {
 export function AuthModal({ isOpen, onClose }: AuthModalProps) {
   const { signInWithGoogle, continueAsGuest, isLoading } = useAuthContext();
   const [authLoading, setAuthLoading] = useState(false);
-  
+
   if (!isOpen) return null;
-  
+
   const handleGoogleSignIn = async () => {
     setAuthLoading(true);
     try {
@@ -27,7 +27,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
       setAuthLoading(false);
     }
   };
-  
+
   const handleGuestSignIn = async () => {
     setAuthLoading(true);
     try {
@@ -38,7 +38,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
       setAuthLoading(false);
     }
   };
-  
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
       <div className="w-full max-w-md rounded-2xl bg-card p-8 shadow-lg">
@@ -48,7 +48,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
             برای استفاده از تمام امکانات، وارد حساب کاربری خود شوید یا به عنوان مهمان ادامه دهید.
           </p>
         </div>
-        
+
         <div className="space-y-4">
           <Button
             variant="outline"
@@ -70,13 +70,13 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
               </>
             )}
           </Button>
-          
+
           <div className="relative flex items-center py-2">
             <div className="flex-grow border-t border-muted"></div>
             <span className="mx-4 flex-shrink text-xs text-muted-foreground">یا</span>
             <div className="flex-grow border-t border-muted"></div>
           </div>
-          
+
           <Button
             variant="secondary"
             className="flex w-full items-center justify-center gap-2 py-6"
@@ -93,7 +93,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
             )}
           </Button>
         </div>
-        
+
         <div className="mt-6 text-center text-xs text-muted-foreground">
           <p>
             با ورود یا ثبت‌نام، شما{' '}
@@ -107,7 +107,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
             ما را می‌پذیرید.
           </p>
         </div>
-        
+
         <button
           className="absolute right-4 top-4 rounded-full p-2 text-muted-foreground hover:bg-muted"
           onClick={onClose}
